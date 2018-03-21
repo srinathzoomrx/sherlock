@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css">
+        body {
+            margin : 20px;
+            font-family: arial;
+        }
+        .title {
+            text-align: center;
+            font-size: 100px;
+            font-style: normal;
+        }
+        .title>img {
+            max-width: 20%;
+            max-height: 200px;
+        }
+        .error {
+            color: #844;
+        }
+        .response {
+            font-size: 30px;
+            text-align:center;
+        }
+        .components {
+            margin: 10px 0;
+            font-style: italic;
+        }
+        .query {
+            color: #ddd;
+            font-size: 10px;
+        }
+        .searchbox  {
+            display: flex;
+            position: relative;
+            font-weight: 400;
+            font-style: normal;
+        }
+        .searchbox input {
+            margin: 0;
+            max-width: 100%;
+            -webkit-box-flex: 1;
+            -ms-flex: 1 0 auto;
+            flex: 1 0 auto;
+            outline: 0;
+            -webkit-tap-highlight-color: rgba(255,255,255,0);
+            text-align: left;
+            line-height: 1.21428571em;
+            font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+            padding: .67857143em 1em;
+            background: #fff;
+            border: 1px solid rgba(34,36,38,.15);
+            color: rgba(0,0,0,.87);
+            border-radius: .28571429rem;
+            -webkit-transition: box-shadow .1s ease,border-color .1s ease;
+            transition: box-shadow .1s ease,border-color .1s ease;
+            box-shadow: none;
+            border-top-right-radius: 0!important;
+            border-bottom-right-radius: 0!important;
+            border-right-color: transparent!important;
+        }
+        .response>table,td {
+            border: solid 1px;
+            font-size: 20px;
+        }
+        .searchbox button {
+            border-radius: 0 .28571429rem .28571429rem 0;
+            padding-top: .78571429em;
+            padding-bottom: .78571429em;
+            margin: 0;
+            display: flex;
+            flex: 0 0 auto;
+            cursor: pointer;
+            display: inline-block;
+            min-height: 1em;
+            outline: 0;
+            border: none;
+            vertical-align: baseline;
+            background: #e0e1e2 none;
+            color: rgba(0,0,0,.6);
+            font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+            margin: 0 .25em 0 0;
+            padding: .78571429em 1.5em .78571429em;
+            text-transform: none;
+            text-shadow: none;
+            font-weight: 700;
+            line-height: 1em;
+            font-style: normal;
+            text-align: center;
+            text-decoration: none;
+            border-radius: .28571429rem;
+            box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34,36,38,.15) inset;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-transition: opacity .1s ease,background-color .1s ease,color .1s ease,box-shadow .1s ease,background .1s ease;
+            transition: opacity .1s ease,background-color .1s ease,color .1s ease,box-shadow .1s ease,background .1s ease;
+            will-change: '';
+            -webkit-tap-highlight-color: transparent;
+        }
+        .searchbox button:hover {
+            background: #333;
+            color: #ddd;
+        }
+        .loader {
+            display: none;
+            margin:40px auto;
+            border: 12px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 12px solid #444;
+            width: 124px;
+            height: 124px;
+            -webkit-animation: spin 2s linear infinite; /* Safari */
+            animation: spin 2s linear infinite;
+        }
+        /* Safari */
+        @-webkit-keyframes spin {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+
+</head>
+<body>
+    <div class="title"></div>
+    <br><br>
+    <div class="searchbox">
+        <input type="text" id="question_box" placeholder="Ask your question here...">
+    </div>
+
+    <div id="display_question"></div>
+    <div id="choices"></div>
+    <div id='reloader'>
+        <br>
+        <button type='button' onclick="location.reload();">Reload</button>
+    </div>
+    <div id="result">
+        <br><br>
+        <!--
+        <div class="response"></div>
+        <div class="query"></div>
+        -->
+    </div>
+    <div id="searchbtn">
+        <br>
+        <button type="button" id="submit_query" onclick="getResponse()">Search</button>
+    </div>
+    <button id='select_option' type='button' onclick="getNextOption()">Next</button>
+    <button id='send_response' type='button' onclick="sendOptions()">Send Response</button>
+
+    <script type="text/javascript" src="scripts.js"></script>
+
+    <div class="loader" id="resploader"></div>
+    <br><br>
+</body>
+</html>
