@@ -83,23 +83,6 @@ class question_components_modified:
                         tables.append(attribute['relation'])
                 return {'type': "E", 'attributes': attributes, 'conditions': [], 'table': tables}
             return {'type': "E", 'attributes': [components], 'conditions': [], 'table': [components['relation']]}
-        if components['type'] == "V":
-            return {
-                'type': "E",
-                'attributes': [components['attribute']],
-                'conditions': [{
-                    'operation': "=",
-                    'explicit': True,
-                    'LHS': {
-                        'type': "A",
-                        'relation': components['relation'],
-                        'attribute': components['attribute'],
-                        'explicit': False
-                    },
-                    'RHS': components['value']
-                }],
-                'table': [components['relation']]
-            }
         return components
 
     def merge_operations(self, op1, op2):
@@ -125,7 +108,7 @@ class question_components_modified:
         expressions = [[]]
         attributes = [[]]
         relations = [[]]
-        query_components = []
+        query_components = [[]]
         global ambi_phrases
         solutions_count = 1
         for element in node:
@@ -253,11 +236,8 @@ class question_components_modified:
                 pass
             elif len(pre_mergeData[i]) == 1:
                 # if only one element is present forward to previous level
-                print "---Pre merged data---"
-                print pre_mergeData[i]
-                query_components.append(pre_mergeData[i][0])
-                print "---Merged data---"
-                print pre_mergeData[i][0]
+                query_components[i].append(pre_mergeData[i][0])
+
             else:
                 # Parse through pre-merge data to identify group type & form expressions
                 group_structure = []
@@ -276,8 +256,6 @@ class question_components_modified:
                     'relations': relations[i],
                     'expressions': expressions[i]
                 })
-                print "---Merged data---"
-                print merged_data
                 # current_weight = 0
                 if merged_data is not False and merged_data is not None:
                     '''
@@ -288,10 +266,8 @@ class question_components_modified:
                         query_components = [merged_data]
                         pass
                     '''
-                    query_components.append(merged_data)
-            print "-QCM-"
-            print query_components
-        print query_components
+                    query_components[i].append(merged_data)
+
         return query_components
 
 
