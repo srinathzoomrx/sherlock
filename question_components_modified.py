@@ -9,8 +9,8 @@ class question_components_modified:
     def __init__(self):
         self.token_handler_obj = token_handler()
         self.semantic_group_obj = semantic_group()
-        jar_file = '/Users/admin/Downloads/stanford-corenlp-full-2017-06-09/stanford-corenlp-3.8.0.jar'
-        model_path = '/Users/admin/Downloads/stanford-corenlp-full-2017-06-09/stanford-corenlp-3.8.0-models.jar'
+        jar_file = '/root/Stanford_CoreNLP/stanford-corenlp-3.8.0.jar'
+        model_path = '/root/Stanford_CoreNLP/stanford-corenlp-3.8.0-models.jar'
         self.parser = StanfordParser(jar_file, model_path)
         self.ambiguities = {'type': 'options', 'data': []}
         self.ambi_phrases = [[]]
