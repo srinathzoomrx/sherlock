@@ -1,4 +1,5 @@
 from model_opt import model_opt
+import json
 
 
 class sql_writer:
@@ -6,6 +7,7 @@ class sql_writer:
         pass
 
     def formQuery(self, components):
+        components = json.loads(components)
         if len(components['table']) == 0:
             return False
         query = "SELECT "
