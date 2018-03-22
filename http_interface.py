@@ -8,10 +8,10 @@ import os
 import json
 import MySQLdb
 
-HOST_NAME = 'localhost'  # !!!REMEMBER TO CHANGE THIS!!!
-PORT_NUMBER = 8080  # Maybe set this to 9000.
+HOST_NAME = '69.164.196.100'
+PORT_NUMBER = 8080
 
-db = MySQLdb.connect("localhost", "root", "root", "Sherlock")
+db = MySQLdb.connect(HOST_NAME, "sherlock", "z00mrxr0cks!", "sherlock")
 cursor = db.cursor()
 
 
