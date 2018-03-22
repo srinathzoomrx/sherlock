@@ -108,8 +108,8 @@ class question_components_modified:
         expressions = [[]]
         attributes = [[]]
         relations = [[]]
-        query_components = [[]]
-        global ambi_phrases
+        query_components = []
+
         solutions_count = 1
         for element in node:
             if type(element) is nltk.Tree:
@@ -120,12 +120,18 @@ class question_components_modified:
                     # Go down the tree to find smaller phrases or just a word
                     returned_comp = self.buildComponents(element)
                     # The query_component of this element's child is received in the returned_comp
-                    if len(returned_comp) == 1 and len(returned_comp[0]) != 0:
+                    if len(returned_comp) == 1:
                         # pre_mergeData = returned_comp
                         for i in range(solutions_count):
-                            pre_mergeData[i].append(returned_comp[0][0])
+                            pre_mergeData[i].append(returned_comp[0])
+                            if returned_comp[0]['type'] == 'A':
+                                attributes[i].append(returned_comp[0])
+                            elif returned_comp[0]['type'] == 'R':
+                                relations[i].append(returned_comp[0])
+                            elif returned_comp[0]['type'] == 'E':
+                                expressions[i].append(returned_comp[0])
 
-                    elif len(returned_comp) == 1 and len(returned_comp[0]) == 0:
+                    elif len(returned_comp) == 0:
                         # Empty query_components of the child that has returned
                         continue
 
@@ -133,7 +139,6 @@ class question_components_modified:
                         solutions_count = len(returned_comp)
                         # The increase in the number of possiblities is updated
                         pre_mergeData = [copy.deepcopy(z) for z in pre_mergeData for i in range(solutions_count)]
-                        query_components = [copy.deepcopy(z) for z in query_components for i in range(solutions_count)]
                         processingOperations = [copy.deepcopy(z) for z in processingOperations for i in range(solutions_count)]
                         expressions = [copy.deepcopy(z) for z in expressions for i in range(solutions_count)]
                         relations = [copy.deepcopy(z) for z in relations for i in range(solutions_count)]
@@ -143,7 +148,13 @@ class question_components_modified:
                         for i in range(solutions_count):
                             j = i % len(returned_comp)
                             # for r in returned_comp[j]:
-                            pre_mergeData[i].append(returned_comp[j][0])
+                            pre_mergeData[i].append(returned_comp[j])
+                            if returned_comp[j]['type'] == 'A':
+                                attributes[i].append(returned_comp[j])
+                            elif returned_comp[j]['type'] == 'R':
+                                relations[i].append(returned_comp[j])
+                            elif returned_comp[j]['type'] == 'E':
+                                expressions[i].append(returned_comp[j])
                         # Hence, increaseing
                     # The query_component of the child is copied to pre_mergedData of the parent
                     # for finding if there are any meaningful group structure
@@ -236,7 +247,7 @@ class question_components_modified:
                 pass
             elif len(pre_mergeData[i]) == 1:
                 # if only one element is present forward to previous level
-                query_components[i].append(pre_mergeData[i][0])
+                query_components.append(pre_mergeData[i][0])
 
             else:
                 # Parse through pre-merge data to identify group type & form expressions
@@ -266,16 +277,22 @@ class question_components_modified:
                         query_components = [merged_data]
                         pass
                     '''
-                    query_components[i].append(merged_data)
-
+                    query_components.append(merged_data)
         return query_components
 
 
 def main():
-    question = "List the players whose name is kohli"
+    question = "players whose name is kohli"
     print question
     obj = question_components_modified()
-    obj.retrieve(question)
+    try:
+        components = obj.retrieve(question)
+        for component in components:
+            print component
+            print
+    except Exception, e:
+        print "There was some error!!! Handled Safley"
+        print "Error message:", e.message
 
 
 if __name__ == '__main__':
