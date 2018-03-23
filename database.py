@@ -5,10 +5,10 @@ class Database():
     """Database to run query"""
     def __init__(self, arg):
         config = {
-            'user': 'root',
-            'password': 'root',
-            'host': 'localhost',
-            'database': 'sys',
+            'user': 'sherlock',
+            'password': 'z00mrxr0cks!',
+            'host': '69.164.196.100',
+            'database': 'sherlock',
             'raise_on_warnings': True,
         }
         config.update(arg)
