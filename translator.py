@@ -17,10 +17,10 @@ class translator:
         self.sql_writer_obj = sql_writer()
         self.semantic_group_obj = semantic_group()
         self.database = Database({
-            'user': 'root',
-            'password': 'root',
-            'host': 'localhost',
-            'database': 'sys',
+            'user': 'sherlock',
+            'password': 'z00mrxr0cks!',
+            'host': '69.164.196.100',
+            'database': 'sherlock',
             'raise_on_warnings': True,
         })
         logging.basicConfig(filename=os.path.join(
